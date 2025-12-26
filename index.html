@@ -14,7 +14,7 @@
     <div class="container">
         <header class="form-header">
             <img src="assets/logo_OCGC.png" alt="Logo OCGC" class="header-logo">
-            <h1>Formulario de confirmación de participación Concierto ANIVER5ARIO</h1>
+            <h1 style="font-size: 30px;">Formulario de confirmación de participación Concierto ANIVER5ARIO</h1>
             <div class="description" style="text-align: left;">
                 <h3>PALACIO DE CONGRESOS DE FUERTEVENTURA <br> 20 DE JUNIO DE 2026</h3>
                 <div class="section-description">
@@ -49,15 +49,15 @@
             <!-- Basic Info Section -->
             <section class="form-section" id="basic-info">
                 <div class="form-group">
-                    <label for="fullName"><strong>Nombre y Apellidos</strong> (tal y como figuran en el DNI o documento
-                        equivalente)<span class="required-asterisk">*</span></label>
+                    <label for="fullName"><strong>Nombre y Apellidos</strong> <br><i>(tal y como figuran en el DNI o documento
+                        equivalente)</i><span class="required-asterisk">*</span></label>
                     <input type="text" id="fullName" name="fullName" required placeholder="Escriba su nombre completo">
                 </div>
 
                 <div class="form-group">
-                    <label><strong>¿Confirmas tu participación en el concierto ANIVER5ARIO en Fuerteventura?
-                        </strong>Esta información es imprescindible para la organización del viaje y la planificación
-                        del concierto.<span class="required-asterisk">*</span></label>
+                    <label><strong>¿Confirmas tu participación en el concierto ANIVER5ARIO en Fuerteventura?</strong>
+                        <br><i>Esta información es imprescindible para la organización del viaje y la planificación
+                        del concierto.</i><span class="required-asterisk">*</span></label>
                     <div class="radio-group">
                         <label class="radio-option">
                             <input type="radio" name="attendance" value="yes" required>
@@ -122,7 +122,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="island">Isla de residencia habitual<span class="required-asterisk">*</span></label>
+                    <label for="island"><strong>Isla de residencia habitual</strong><span class="required-asterisk">*</span></label>
                     <select id="island" name="island" class="conditional-required">
                         <option value="" disabled selected>Seleccione una isla</option>
                         <option value="Tenerife">Tenerife</option>
@@ -137,9 +137,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label><strong>¿Eres residente canario?</strong> Esta información se utiliza únicamente para la
+                    <label><strong>¿Eres residente canario?</strong>
+                        <br><i>Esta información se utiliza únicamente para la
                         gestión de los descuentos de residente en los desplazamientos. El certificado se solicitará más
-                        adelante si fuera necesario.<span class="required-asterisk">*</span></label>
+                        adelante si fuera necesario.</i><span class="required-asterisk">*</span></label>
                     <div class="radio-group">
                         <label class="radio-option">
                             <input type="radio" name="residentCert" value="yes" class="conditional-required">
@@ -154,7 +155,7 @@
 
                 <div class="form-group">
                     <label for="medicalInfo"><strong>Información relevante para la organización del viaje</strong>
-                        (alergias alimentarias, necesidades médicas, movilidad, etc.)</label>
+                        <br><i>(alergias alimentarias, necesidades médicas, movilidad, etc.)</i></label>
                     <textarea id="medicalInfo" name="medicalInfo" rows="3" class="conditional"
                         placeholder="Indique cualquier información médica relevante o alergias (Opcional)"></textarea>
                 </div>
@@ -162,7 +163,7 @@
                 <!-- Alojamiento Section -->
                 <h3>Alojamiento</h3>
                 <div class="section-description">
-                    <p>Las <strong>habitaciones</strong> serán <strong>compartidas</strong>. Serán <strong>triples</strong>. La información
+                    <p>El alojamiento se organizará en <strong>habitaciones compartidas</strong>, con una ocupación de <strong>tres personas por habitación</strong>. La información
                         indicada en este apartado se utilizará como referencia para la organización del alojamiento. La
                         distribución final de las habitaciones estará sujeta a la disponibilidad del hotel, y se
                         intentará respetar las preferencias siempre que sea posible.</p>
@@ -184,11 +185,10 @@
                 </div>
 
                 <div id="roommate-names-group" class="hidden">
-                    <p
-                        style="margin-bottom: 15px; color: var(--secondary-color); font-weight: 500; font-size: 1.05rem;">
+                    <p>
                         <strong>Indica el nombre y el instrumento/voz de las personas con las que compartirás habitación.
                         Si solo se indica una persona, la organización asignará la tercera.</strong>
-                        <span>(No es necesario incluir tu propio nombre)</span> <span class="required-asterisk">*</span>
+                        <br><i>(No es necesario incluir tu propio nombre)</i> <span class="required-asterisk">*</span>
                     </p>
 
                     <div class="form-group" style="background: #fdfdfd; border: 1px dashed #ccc;">

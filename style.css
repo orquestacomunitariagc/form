@@ -69,6 +69,7 @@ h1 {
     color: var(--secondary-color);
     font-weight: 700;
     margin-bottom: 10px;
+    text-align: left;
 }
 
 .description {
@@ -120,11 +121,16 @@ h3 {
 
 label {
     display: block;
-    font-weight: 600;
-    /* Bolder */
+    font-weight: 400;
+    /* Normal weight — reserve bold for <strong> */
     margin-bottom: 12px;
     color: var(--secondary-color);
     font-size: 1.05rem;
+}
+
+/* Ensure only explicit <strong> elements render bold inside labels */
+label strong {
+    font-weight: 700;
 }
 
 .required-asterisk {
