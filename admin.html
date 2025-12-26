@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Respuestas</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/logo_OCGC_simple.png">
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            width: 95%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .login-card {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        th,
+        td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        .btn-logout {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Login Section -->
+    <div id="login-section" class="login-card">
+        <h2>Acceso Administrativo</h2>
+        <p>Inicia sesión para ver las respuestas</p>
+        <form id="loginForm">
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Correo electrónico" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Contraseña" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%">Entrar</button>
+            <p id="loginError" style="color: red; margin-top: 10px; display: none;"></p>
+        </form>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboard-section" class="admin-container hidden">
+        <header class="dashboard-header">
+            <div>
+                <h1>Respuestas Recibidas</h1>
+                <p>Total: <span id="total-count">0</span> <span id="filtered-count-label"
+                        style="font-weight: normal; color: #666; font-size: 0.9em;"></span></p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button id="exportBtn" class="btn btn-primary">Exportar CSV</button>
+                <button id="logoutBtn" class="btn btn-logout">Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <!-- Filters Section -->
+        <div
+            style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+            <h3 style="margin-top: 0; margin-bottom: 15px; border-left: none; padding-left: 0; font-size: 1.1rem;">
+                Filtros</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px;">
+                <select id="filterAttendance" class="admin-filter">
+                    <option value="">Asistencia (Todos)</option>
+                    <option value="yes">Sí</option>
+                    <option value="no">No</option>
+                </select>
+                <select id="filterGroup" class="admin-filter">
+                    <option value="">Agrupación (Todos)</option>
+                    <option value="Orquesta">Orquesta</option>
+                    <option value="Coro">Coro</option>
+                </select>
+                <select id="filterInstrument" class="admin-filter">
+                    <option value="">Instrumento (Todos)</option><!-- Populated JS -->
+                </select>
+                <select id="filterVoice" class="admin-filter">
+                    <option value="">Voz (Todos)</option><!-- Populated JS -->
+                </select>
+                <select id="filterIsland" class="admin-filter">
+                    <option value="">Isla (Todos)</option><!-- Populated JS -->
+                </select>
+                <select id="filterResident" class="admin-filter">
+                    <option value="">Residente (Todos)</option>
+                    <option value="yes">Sí</option>
+                    <option value="no">No</option>
+                </select>
+                <select id="filterRoom" class="admin-filter">
+                    <option value="">Habitación (Todos)</option>
+                    <option value="selected">Conocido</option>
+                    <option value="organization">Asignar</option>
+                </select>
+            </div>
+            <div style="margin-top: 15px; text-align: right;">
+                <button id="clearFiltersBtn" class="btn"
+                    style="background: #eee; color: #333; padding: 5px 15px; font-size: 0.9rem;">Limpiar
+                    Filtros</button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table id="responsesTable">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Nombre</th>
+                        <th>Asistencia</th>
+                        <th>Agrupación</th>
+                        <th>Inst./Voz</th>
+                        <th>Isla</th>
+                        <th>Cert.</th>
+                        <th>Habitación</th>
+                        <th>Compañeros</th>
+                        <th>Info Médica</th>
+                    </tr>
+                </thead>
+                <tbody id="responsesBody">
+                    <!-- Data will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script type="module" src="admin.js"></script>
+</body>
+
+</html>

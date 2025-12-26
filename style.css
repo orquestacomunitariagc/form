@@ -1,0 +1,240 @@
+:root {
+    --primary-color: #c9a765;
+    /* Gold-ish tone */
+    --secondary-color: #1a1e26;
+    /* Dark blue/black */
+    --background-color: #f7f9fc;
+    --surface-color: #ffffff;
+    --text-color: #333333;
+    --border-radius: 12px;
+    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: var(--surface-color);
+    width: 100%;
+    max-width: 600px;
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header-logo {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.header-logo img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+h1 {
+    color: var(--secondary-color);
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.description {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.form-section {
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    transition: var(--transition);
+}
+
+.form-section:last-child {
+    border-bottom: none;
+}
+
+.form-group {
+    margin-bottom: 35px;
+    /* Increased spacing */
+    background: #fff;
+    padding: 15px;
+    /* Added padding */
+    border-radius: 8px;
+    /* Added radius */
+    border: 1px solid #f0f0f0;
+    /* Subtle border */
+}
+
+h3 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+    font-size: 1.4rem;
+    border-left: 4px solid var(--primary-color);
+    padding-left: 15px;
+}
+
+.section-description {
+    margin-bottom: 25px;
+    color: #555;
+    font-size: 0.95rem;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #ddd;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    /* Bolder */
+    margin-bottom: 12px;
+    color: var(--secondary-color);
+    font-size: 1.05rem;
+}
+
+.required-asterisk {
+    color: #e74c3c;
+    margin-left: 4px;
+}
+
+input[type="text"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #fafafa;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: var(--transition);
+    box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(201, 167, 101, 0.15);
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Radio Group Styling */
+.radio-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.radio-option {
+    flex: 1;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid #e0e0e0;
+    padding: 12px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    transition: var(--transition);
+    background-color: #fafafa;
+}
+
+.radio-option:hover {
+    background-color: #f0f0f0;
+}
+
+.radio-option input[type="radio"] {
+    margin-right: 10px;
+    accent-color: var(--primary-color);
+    width: 18px;
+    height: 18px;
+}
+
+.radio-option:has(input:checked) {
+    border-color: var(--primary-color);
+    background-color: rgba(201, 167, 101, 0.05);
+}
+
+/* Visibility classes */
+.hidden {
+    display: none;
+}
+
+/* Button */
+.form-footer {
+    text-align: center;
+    margin-top: 30px;
+}
+
+button[type="submit"] {
+    background: linear-gradient(135deg, var(--secondary-color) 0%, #2c3e50 100%);
+    color: #fff;
+    border: none;
+    padding: 14px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 14px rgba(0, 0, 0, 0.15);
+}
+
+button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+
+    .radio-group {
+        flex-direction: column;
+    }
+}
