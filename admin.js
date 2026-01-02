@@ -138,7 +138,10 @@ function renderTable(data) {
                 <td>
                     ${row.roomSharing === 'selected' ? 'Compartir' : (row.roomSharing === 'organization' ? 'Asignar' : '-')}
                 </td>
-                <td>${row.roommateNames || '-'}</td>
+                <td>${row.roommate1Name || '-'}</td>
+                <td>${row.roommate1Instrument || '-'}</td>
+                <td>${row.roommate2Name || '-'}</td>
+                <td>${row.roommate2Instrument || '-'}</td>
                 <td>${row.medicalInfo || '-'}</td>
             </tr>
         `;
@@ -197,7 +200,7 @@ exportBtn.addEventListener('click', () => {
 
     if (allData.length === 0) return;
 
-    const headers = ["Fecha", "Nombre", "Asistencia", "Agrupación", "Instrumento", "Voz", "Isla", "Cert. Residente", "Habitación", "Compañeros", "Info Médica"];
+    const headers = ["Fecha", "Nombre", "Asistencia", "Agrupación", "Instrumento", "Voz", "Isla", "Cert. Residente", "Habitación", "Compañero 1", "Inst/Voz 1", "Compañero 2", "Inst/Voz 2", "Info Médica"];
     const csvRows = [headers.join(',')];
 
     allData.forEach(row => {
@@ -212,7 +215,10 @@ exportBtn.addEventListener('click', () => {
             row.island || '',
             row.residentCert || '',
             row.roomSharing || '',
-            `"${row.roommateNames || ''}"`,
+            `"${row.roommate1Name || ''}"`,
+            `"${row.roommate1Instrument || ''}"`,
+            `"${row.roommate2Name || ''}"`,
+            `"${row.roommate2Instrument || ''}"`,
             `"${row.medicalInfo || ''}"`
         ];
         csvRows.push(values.join(','));

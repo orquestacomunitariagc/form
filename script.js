@@ -34,7 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Roommate logic
     const roomSharingRadios = document.getElementsByName('roomSharing');
     const roommateNamesGroup = document.getElementById('roommate-names-group');
-    const roommateNamesInput = document.getElementById('roommateNames');
+    const roommate1Name = document.getElementById('roommate1Name');
+    const roommate2Name = document.getElementById('roommate2Name');
 
     // Toggle Details Section based on Attendance
     attendanceRadios.forEach(radio => {
@@ -81,11 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
         radio.addEventListener('change', (e) => {
             if (e.target.value === 'selected') {
                 roommateNamesGroup.classList.remove('hidden');
-                roommateNamesInput.required = true;
+                roommate1Name.required = true;
             } else {
                 roommateNamesGroup.classList.add('hidden');
-                roommateNamesInput.required = false;
-                roommateNamesInput.value = ''; // Clear value
+                roommate1Name.required = false;
+                roommate1Name.value = ''; // Clear values
+                roommate2Name.value = '';
+                document.getElementById('roommate1Instrument').value = '';
+                document.getElementById('roommate2Instrument').value = '';
             }
         });
     });
