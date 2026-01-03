@@ -26,6 +26,7 @@ const responsesBody = document.getElementById('responsesBody');
 const totalCount = document.getElementById('total-count');
 const filteredCountLabel = document.getElementById('filtered-count-label');
 const exportBtn = document.getElementById('exportBtn');
+const exportExcelBtn = document.getElementById('exportExcelBtn');
 const clearFiltersBtn = document.getElementById('clearFiltersBtn');
 
 // Filters
@@ -232,4 +233,82 @@ exportBtn.addEventListener('click', () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+});
+
+// Excel Export - Replicando el proceso de Python
+exportExcelBtn.addEventListener('click', () => {
+    if (allData.length === 0) return;
+
+    // 1. Filtrar solo los que han confirmado su asistencia
+    const confirmados = allData.filter(row => row.attendance === 'yes');
+
+    // 2. Separar los datos por tipo de habitación
+    const conCompaneros = confirmados.filter(row => row.roomSharing === 'selected');
+    const paraAsignar = confirmados.filter(row => row.roomSharing !== 'selected');
+
+    // Función auxiliar para procesar y ordenar datos
+    const prepareSheetData = (data) => {
+        const processed = data.map(row => ({
+            ...row,
+            detalle: row.groupType === 'Orquesta' ? (row.instrument || '') : (row.voiceType || '')
+        }));
+
+        processed.sort((a, b) => {
+            if (a.groupType !== b.groupType) return a.groupType.localeCompare(b.groupType);
+            if (a.detalle !== b.detalle) return a.detalle.localeCompare(b.detalle);
+            return a.fullName.localeCompare(b.fullName);
+        });
+
+        return processed.map(row => {
+            const date = row.timestamp ? new Date(row.timestamp.seconds * 1000).toLocaleString() : 'N/A';
+            return {
+                "Fecha": date,
+                "Nombre": row.fullName || '',
+                "Agrupación": row.groupType || '',
+                "Instrumento/Voz": row.detalle || '',
+                "Isla": row.island || '',
+                "Cert. Residente": row.residentCert === 'yes' ? 'Sí' : 'No',
+                "Habitación": row.roomSharing === 'selected' ? 'Compañeros seleccionados' : 'OCGC asigna',
+                "Compañero 1": row.roommate1Name || '',
+                "Inst./Voz 1": row.roommate1Instrument || '',
+                "Compañero 2": row.roommate2Name || '',
+                "Inst./Voz 2": row.roommate2Instrument || '',
+                "Info Médica": row.medicalInfo || ''
+            };
+        });
+    };
+
+    // 3. Crear anchos de columna comunes
+    const colWidths = [
+        { wch: 20 }, // Fecha
+        { wch: 30 }, // Nombre
+        { wch: 15 }, // Agrupación
+        { wch: 20 }, // Instrumento/Voz
+        { wch: 15 }, // Isla
+        { wch: 15 }, // Cert. Residente
+        { wch: 20 }, // Habitación
+        { wch: 25 }, // Compañero 1
+        { wch: 20 }, // Inst./Voz 1
+        { wch: 25 }, // Compañero 2
+        { wch: 20 }, // Inst./Voz 2
+        { wch: 40 }  // Info Médica
+    ];
+
+    // 4. Crear el libro de trabajo
+    const workbook = XLSX.utils.book_new();
+
+    // 5. Añadir Hoeja 1: Con Compañeros
+    const listConCompaneros = prepareSheetData(conCompaneros);
+    const ws1 = XLSX.utils.json_to_sheet(listConCompaneros);
+    ws1['!cols'] = colWidths;
+    XLSX.utils.book_append_sheet(workbook, ws1, "Con Compañeros");
+
+    // 6. Añadir Hoja 2: Para Asignar (OCGC)
+    const listParaAsignar = prepareSheetData(paraAsignar);
+    const ws2 = XLSX.utils.json_to_sheet(listParaAsignar);
+    ws2['!cols'] = colWidths;
+    XLSX.utils.book_append_sheet(workbook, ws2, "Para Asignar");
+
+    // 7. Descargar el archivo
+    XLSX.writeFile(workbook, "gestion_habitaciones_concierto.xlsx");
 });
